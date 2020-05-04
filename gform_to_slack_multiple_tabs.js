@@ -1,10 +1,11 @@
 var incomingWebhookUrl = 'https://hooks.slack.com/services/YOUR-URL-HERE';
+var secondIncomingWebhookUrl = 'https://hooks.slack.com/services/YOUR-SECOND-URL-HERE';
 var postChannel = "YOUR-CHANNEL-HERE";
 var postIcon = ":mailbox_with_mail:";
 var postUser = "Form Response";
 var postColor = "#00B1AC";
 var messageFallback = "The attachment must be viewed as plain text.";
-var messagePretext = "<!here> A user submitted a response to the form.";
+var messagePretext = "A user submitted a response to the form.";
 
 function initialize() {
   var triggers = ScriptApp.getProjectTriggers();
