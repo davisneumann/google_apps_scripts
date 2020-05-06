@@ -1,11 +1,11 @@
-var incomingWebhookUrl = 'https://hooks.slack.com/services/YOUR-URL-HERE';
-var secondIncomingWebhookUrl = 'https://hooks.slack.com/services/YOUR-SECOND-URL-HERE';
+var incomingWebhookUrl = '';
+var secondWebhookUrl = ''
 var postChannel = "YOUR-CHANNEL-HERE";
 var postIcon = ":mailbox_with_mail:";
 var postUser = "Form Response";
 var postColor = "#00B1AC";
 var messageFallback = "The attachment must be viewed as plain text.";
-var messagePretext = "A user submitted a response to the form.";
+var messagePretext = "<!here> A user submitted a response to the form.";
 
 function initialize() {
   var triggers = ScriptApp.getProjectTriggers();
@@ -25,13 +25,17 @@ function postValuesToSlack(e) {
     "username": postUser,
     "icon_emoji": postIcon,
     "link_names": 1,
-    "attachments": attachments
+    "attachments": attachments,
   };
   var options = {
     'method': 'post',
     'payload': JSON.stringify(payload)
   };
-  var response = UrlFetchApp.fetch(incomingWebhookUrl, options);
+  if (e.source.getSheetName() === 'Form Responses 1') { 
+    var response = UrlFetchApp.fetch(incomingWebhookUrl, options);
+  } else {
+    var response = UrlFetchApp.fetch(secondWebhookUrl, options);
+  }
 }
 
 var makeFieldForMessage = function(question, answer) {
